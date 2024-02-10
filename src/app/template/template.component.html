@@ -1,0 +1,151 @@
+<!--
+    form for
+    export interface User {
+    nom: string;
+    prenom: string;
+    email: string;
+    password: string;
+    tel: string;
+    adresse: string;
+    certification: string;
+    redoublement:number;
+    age:number;
+}
+with validation and error message template driven with interface user
+-->
+<div class="container text-center">
+    <div class="row">
+      <div class="col">
+ <form #f="ngForm">
+    {{user | json }}
+    <h2> Inscription doctoral</h2>
+    <div class="mb-3">
+        <label  class="form-label">Nom</label>
+        <input type="text" class="form-control" name="nom" pattern="[A-Z a-z]{3,20}" required #nom="ngModel"  [(ngModel)]="user.nom" >
+        <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+            <div *ngIf="nom.errors?.['required']">
+                Nom est obligatoire
+            </div>
+            <div *ngIf="nom.errors?.['pattern']">
+                Nom doit contenir que des lettres et doit etre entre 3 et 20 caractères
+            </div>
+        </div>
+
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Prenom</label>
+        <input type="text" class="form-control" name="prenom" pattern="[A-Z a-z]{3,20}" required #prenom="ngModel"  [(ngModel)]="user.prenom" >
+        <div *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+            <div *ngIf="prenom.errors?.['required']">
+                Prenom est obligatoire
+            </div>
+            <div *ngIf="prenom.errors?.['pattern']">
+                Prénom doit contenir que des lettres et doit etre entre 3 et 20 caractères
+            </div>
+            </div>
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required #email="ngModel"  [(ngModel)]="user.email" >
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+            <div *ngIf="email.errors?.['required']">
+                l'email est obligatoire
+            </div>
+            <div *ngIf="email.errors?.['email']">
+                l'email doit etre valide et doit contenir un arobass et le . dans les emplacement correctes.
+                </div>
+
+            </div>
+            <div>
+                <label  class="form-label">Password</label>
+                <input type="password" class="form-control" name="password"  minlength="6" required #password="ngModel"  [(ngModel)]="user.password" >
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    <div *ngIf="password.errors?.['required']">
+                        le mot de passe est obligatoire
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                        le mot de passe doit contenir au moins 6 caractères
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label  class="form-label">répéter mot de passe:</label>
+                <input type="password" class="form-control" name="password2"  minlength="6" required #password2="ngModel"  [(ngModel)]="pass" >
+                <div *ngIf="password2.invalid && (password2.dirty || password2.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    
+                    <div *ngIf="password2!=password">
+                        les mots de passe ne sont pas identiques
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <label  class="form-label">Téléphone</label>
+                <input type="text" class="form-control" name="tel"  pattern="[+0-9]{8,15}" required #tel="ngModel"  [(ngModel)]="user.tel" >
+                <div *ngIf="tel.invalid && (tel.dirty || tel.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    <div *ngIf="tel.errors?.['required']">
+                        le téléphone est obligatoire
+                    </div>
+                    <div *ngIf="tel.errors?.['pattern']">
+                        le téléphone doit contenir 10 chiffres
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label  class="form-label">Adresse</label>
+                <input type="text" class="form-control" name="adresse"  required #adresse="ngModel"  [(ngModel)]="user.adresse" >
+                <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    <div *ngIf="adresse.errors?.['required']">
+                        l'adresse est obligatoire
+                    </div>
+                </div>
+      </div></div>
+        <div>
+            <label  class="form-label">Certification</label>
+            <select class="form-control" name="certification"  required #certification="ngModel"  [(ngModel)]="user.certification" >
+                <option value="licence">Ingénieur</option>
+                <option value="master">Master</option>
+                <option value="doctorat">Doctorat</option>
+            </select>
+            <div *ngIf="certification.invalid && (certification.dirty || certification.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                <div *ngIf="certification.errors?.['required']">
+                    la certification est obligatoire
+                </div>
+            </div>
+            </div>
+            <div>
+                <label  class="form-label">Redoublement</label>
+                <input type="number" class="form-control" min="0" name="redoublement"  required #redoublement="ngModel"  [(ngModel)]="user.redoublement" >
+                <div *ngIf="redoublement.invalid && (redoublement.dirty || redoublement.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    <div *ngIf="redoublement.errors?.['required']">
+                        le redoublement est obligatoire
+                    </div>
+                    <div *ngIf="redoublement.errors?.['min']">
+                        le redoublement doit etre positif
+                        </div>
+                </div>
+                
+            </div>
+            <div>
+                <label  class="form-label">Age</label>
+                <input type="number" class="form-control" min="22" max="38" name="age"  required #age="ngModel"  [(ngModel)]="user.age" >
+                <div *ngIf="age.invalid && (age.dirty || age.touched)" class="alert alert-danger"> <!-- dirty or touched => le champs est touché et quiité ou le champs est séléctionné  -->
+                    <div *ngIf="age.errors?.['required']">
+                        l'age est obligatoire
+                    </div>
+                    <div *ngIf="age.errors?.['min']">
+                        l'age doit etre supérieur à 22
+                    </div>
+                    <div *ngIf="age.errors?.['max']">
+                        l'age doit etre inférieur à 38
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="checkbox" class="form-check-input" name="accept"  required #accept="ngModel"  [(ngModel)]="acceptation" > 
+                <label  class="form-check-label">j'ai lu et j'accepte les conditions</label>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="f.invalid || !acceptation">Submit</button>
+ </form>
+</div>
+</div>
